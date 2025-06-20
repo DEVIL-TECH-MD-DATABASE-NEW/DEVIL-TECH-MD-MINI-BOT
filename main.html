@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Devil Tech Md Pair Code Web Site">
+  <meta name="keywords" content="deviltechmdweb, deviltechmd, deviltech">
+  <meta name="author" content="CyberAshuuOfc">
+  <title>ᴅᴇᴠɪʟ ᴛᴇᴄʜ ᴍᴅ ᴍɪɴɪ ʙᴏᴛ ᴡᴇʙ</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <!-- Favicon Link -->
+  <link href="ashuu.png" rel="icon">
+  <link href="ashuu.png" rel="apple-touch-icon">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <!-- Apple Touch Icon (iOS) -->
+  <link rel="apple-touch-icon" sizes="180x180" href="ashuu.png">
+  <!-- Android/Chrome Icon -->
+  <link rel="icon" type="image/png" sizes="192x192" href="ashuu.png">
+
+  <style>
+    :root {
+      --primary-color: #007bff; /* Changed to blue */
+      --secondary-color: #ffffff;
+      --accent-color: #1a1a1a;
+      --text-color: #ffffff;
+      --background-color: #000000;
+      --hover-color: #222222;
+      --border-color: rgba(0, 123, 255, 0.2); /* Blue border */
+      --neon-glow: 0 0 10px rgba(0, 123, 255, 0.8),
+                   0 0 20px rgba(0, 123, 255, 0.6),
+                   0 0 30px rgba(0, 123, 255, 0.4); /* Blue glow */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+      position: relative;
+      overflow: hidden;
+      background: var(--background-color);
+    }
+
+    /* Video Background with Dark Overlay */
+    .video-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    #video-bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.9;
+    }
+
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+    }
+
+    /* Audio Controls */
+    .audio-controls {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      background: rgba(26, 26, 26, 0.7);
+      padding: 10px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      backdrop-filter: blur(5px);
+      border: 1px solid var(--border-color);
+      animation: glowPulse 2s ease-in-out infinite;
+    }
+
+    .audio-controls button {
+      background: var(--primary-color);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .audio-controls button:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .volume-control {
+      width: 100px;
+    }
+
+    /* Audio Prompt */
+    .audio-prompt {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(26, 26, 26, 0.9);
+      padding: 10px 20px;
+      border-radius: 8px;
+      color: var(--text-color);
+      font-size: 14px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--neon-glow);
+      border: 1px solid var(--border-color);
+    }
+
+    .audio-prompt button {
+      background: var(--primary-color);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      color: var(--secondary-color);
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .audio-prompt button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.8);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      background: rgba(26, 26, 26, 0.85);
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: var(--neon-glow);
+      border: 2px solid transparent;
+      position: relative;
+      z-index: 1;
+      animation: borderLightDark 3s ease-in-out infinite;
+    }
+
+    @keyframes borderLightDark {
+      0% { 
+        border-color: rgba(0, 123, 255, 0.2); 
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.2); 
+      }
+      50% { 
+        border-color: rgba(0, 123, 255, 0.8); 
+        box-shadow: 0 0 20px rgba(0, 123, 255, 0.8); 
+      }
+      100% { 
+        border-color: rgba(0, 123, 255, 0.2); 
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.2); 
+      }
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 16px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: var(--secondary-color);
+      box-shadow: var(--neon-glow);
+      position: relative;
+      animation: glowPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+      0% { box-shadow: var(--neon-glow); }
+      50% { box-shadow: 0 0 15px rgba(0, 123, 255, 1), 0 0 25px rgba(0, 123, 255, 0.8), 0 0 35px rgba(0, 123, 255, 0.6); }
+      100% { box-shadow: var(--neon-glow); }
+    }
+
+    .logo-text {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-shadow: 0 0 5px rgba(0, 123, 255, 0.7);
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 20px;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .social-icons a {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 18px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 5px currentColor;
+    }
+
+    .social-icons a.whatsapp { background: #0cfa10; box-shadow: 0 0 10px #0cfa10; }
+    .social-icons a.github { background: #333; box-shadow: 0 0 10px #333; }
+
+    .social-icons a:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 0 15px currentColor;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .input-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 13px;
+      color: var(--text-color);
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 12px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 12px;
+      background: var(--hover-color);
+      color: var(--text-color);
+      font-size: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    }
+
+    .generate-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary-color);
+      border: none;
+      border-radius: 12px;
+      color: var(--secondary-color);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 16px;
+      box-shadow: var(--neon-glow);
+    }
+
+    .generate-btn:hover {
+      transform: translateY(-1px) rotate(2deg);
+      box-shadow: 0 0 20px rgba(0, 123, 255, 0.8);
+    }
+
+    .generate-btn.breaking {
+      animation: breakEffect 0.5s ease-out forwards;
+    }
+
+    @keyframes breakEffect {
+      0% { transform: scale(1) skew(0deg); opacity: 1; }
+      30% { transform: scale(1.1) skew(10deg); opacity: 0.8; }
+      60% { transform: scale(0.9) skew(-10deg); opacity: 0.6; }
+      100% { transform: scale(1) skew(0deg); opacity: 1; }
+    }
+
+    .code-display {
+      background: var(--hover-color);
+      padding: 12px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--border-color);
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    }
+
+    .copy-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--hover-color);
+      border: 1.5px solid var(--border-color);
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--primary-color);
+      transition: all 0.3s ease;
+      animation: glowPulse 2s ease-in-out infinite;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-color);
+      border-color: var(--primary-color);
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+      transform: rotate(2deg);
+    }
+
+    .success-message {
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 16px;
+      text-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .error-message {
+      color: #ff3e3e; /* Kept red for contrast */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 14px;
+      text-shadow: 0 0 5px rgba(255, 62, 62, 0.5);
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      margin: 16px 0;
+    }
+
+    .loading i {
+      font-size: 24px;
+      color: var(--primary-color);
+      animation: spin 1s linear infinite;
+      text-shadow: var(--neon-glow);
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    #toast {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      z-index: 1000;
+      box-shadow: var(--neon-glow);
+      transition: opacity 0.3s ease;
+      opacity: 0;
+      animation: glowPulse 2s ease-in-out infinite;
+    }
+
+    .country-code-selector {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    .country-code-dropdown {
+      width: 100%;
+      padding: 12px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 12px;
+      background: var(--hover-color);
+      color: var(--text-color);
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='#007bff' width='18px' height='18px'><path d='M7 10l5 5 5-5z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 18px;
+    }
+
+    .country-code-dropdown:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px;
+        border-radius: 12px;
+      }
+
+      .code-display {
+        font-size: 16px;
+        min-height: 50px;
+      }
+      
+      .audio-controls {
+        bottom: 10px;
+        right: 10px;
+      }
+
+      .audio-prompt {
+        font-size: 12px;
+        padding: 8px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="video-container">
+    <video id="video-bg" autoplay muted loop>
+      <source src="https://files.catbox.moe/x8t2n3.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <audio id="bg-music" autoplay loop muted preload="auto">
+    <source src="https://files.catbox.moe/9xnq3y.mp3" type="audio/mpeg">
+    ඔබේ බ්‍රවුසරය ඕඩියෝ එලිමන්ට් එක සපෝට් කරන්නේ නැහැ.
+  </audio>
+
+  <div class="audio-controls">
+    <input type="range" id="volume-control" class="volume-control" min="0" max="1" step="0.1" value="1">
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <div class="logo"><i class="fas fa-robot"></i></div>
+      <h1 class="title logo-text">Dᴇᴠɪʟ Tᴇᴄʜ Mᴅ ᴍɪɴɪ ʙᴏᴛ</h1>
+      <p class="subtitle">Gᴇɴᴇʀᴀᴛᴇ Yᴏᴜʀ Wʜᴀᴛꜱᴀᴘᴘ Pᴀɪʀ Cᴏᴅᴇ</p>
+      <div class="social-icons">
+        <a href="https://whatsapp.com/channel/0029Vb4NzEGDOQIP2mJXmo3T" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://wa.me/94702884908?text=*ʜᴇʟʟᴏ_ᴄʀᴀᴢʏ_ᴀꜱʜᴜᴜ_xᴅ_ʙʙʜ🥵💗*" target="_blank" class="contact"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label class="input-label">Cᴏᴜɴᴛʀʏ Cᴏᴅᴇ Sᴇʟᴇᴄᴛ</label>
+      <select id="countryCode" class="country-code-dropdown">
+        <option value="+94" selected>🇱🇰 Sri Lanka (+94)</option>
+        <option value="+92">🇵🇰 Pakistan (+92)</option>
+        <option value="+91">🇮🇳 India (+91)</option>
+        <option value="+93">🇦🇫 Afghanistan (+93)</option>
+        <option value="+355">🇦🇱 Albania (+355)</option>
+        <option value="+213">🇩🇿 Algeria (+213)</option>
+        <option value="+376">🇦🇩 Andorra (+376)</option>
+        <option value="+244">🇦🇴 Angola (+244)</option>
+        <option value="+1268">🇦🇬 Antigua and Barbuda (+1268)</option>
+        <option value="+54">🇦🇷 Argentina (+54)</option>
+        <option value="+374">🇦🇲 Armenia (+374)</option>
+        <option value="+297">🇦🇼 Aruba (+297)</option>
+        <option value="+61">🇦🇺 Australia (+61)</option>
+        <option value="+43">🇦🇹 Austria (+43)</option>
+        <option value="+994">🇦🇿 Azerbaijan (+994)</option>
+        <option value="+1242">🇧🇸 Bahamas (+1242)</option>
+        <option value="+973">🇧🇭 Bahrain (+973)</option>
+        <option value="+880">🇧🇩 Bangladesh (+880)</option>
+        <option value="+1246">🇧🇧 Barbados (+1246)</option>
+        <option value="+375">🇧🇾 Belarus (+375)</option>
+        <option value="+32">🇧🇪 Belgium (+32)</option>
+        <option value="+501">🇧🇿 Belize (+501)</option>
+        <option value="+229">🇧🇯 Benin (+229)</option>
+        <option value="+1441">🇧🇲 Bermuda (+1441)</option>
+        <option value="+975">🇧🇹 Bhutan (+975)</option>
+        <option value="+591">🇧🇴 Bolivia (+591)</option>
+        <option value="+387">🇧🇦 Bosnia and Herzegovina (+387)</option>
+        <option value="+267">🇧🇼 Botswana (+267)</option>
+        <option value="+55">🇧🇷 Brazil (+55)</option>
+        <option value="+673">🇧🇳 Brunei (+673)</option>
+        <option value="+359">🇧🇬 Bulgaria (+359)</option>
+        <option value="+226">🇧🇫 Burkina Faso (+226)</option>
+        <option value="+257">🇧🇮 Burundi (+257)</option>
+        <option value="+855">🇰🇭 Cambodia (+855)</option>
+        <option value="+237">🇨🇲 Cameroon (+237)</option>
+        <option value="+1">🇨🇦 Canada (+1)</option>
+        <option value="+238">🇨🇻 Cape Verde (+238)</option>
+        <option value="+1345">🇰🇾 Cayman Islands (+1345)</option>
+        <option value="+236">🇨🇫 Central African Republic (+236)</option>
+        <option value="+235">🇹🇩 Chad (+235)</option>
+        <option value="+56">🇨🇱 Chile (+56)</option>
+        <option value="+86">🇨🇳 China (+86)</option>
+        <option value="+57">🇨🇴 Colombia (+57)</option>
+        <option value="+269">🇰🇲 Comoros (+269)</option>
+        <option value="+242">🇨🇬 Congo (+242)</option>
+        <option value="+682">🇨🇰 Cook Islands (+682)</option>
+        <option value="+506">🇨🇷 Costa Rica (+506)</option>
+        <option value="+385">🇭🇷 Croatia (+385)</option>
+        <option value="+53">🇨🇺 Cuba (+53)</option>
+        <option value="+599">🇨🇼 Curaçao (+599)</option>
+        <option value="+357">🇨🇾 Cyprus (+357)</option>
+        <option value="+420">🇨🇿 Czech Republic (+420)</option>
+        <option value="+243">🇨🇩 Democratic Republic of the Congo (+243)</option>
+        <option value="+45">🇩🇰 Denmark (+45)</option>
+        <option value="+253">🇩🇯 Djibouti (+253)</option>
+        <option value="+1767">🇩🇲 Dominica (+1767)</option>
+        <option value="+1809">🇩🇴 Dominican Republic (+1809)</option>
+        <option value="+1829">🇩🇴 Dominican Republic (+1829)</option>
+        <option value="+1849">🇩🇴 Dominican Republic (+1849)</option>
+        <option value="+670">🇹🇱 East Timor (+670)</option>
+        <option value="+593">🇪🇨 Ecuador (+593)</option>
+        <option value="+20">🇪🇬 Egypt (+20)</option>
+        <option value="+503">🇸🇻 El Salvador (+503)</option>
+        <option value="+240">🇬🇶 Equatorial Guinea (+240)</option>
+        <option value="+291">🇪🇷 Eritrea (+291)</option>
+        <option value="+372">🇪🇪 Estonia (+372)</option>
+        <option value="+251">🇪🇹 Ethiopia (+251)</option>
+        <option value="+500">🇫🇰 Falkland Islands (+500)</option>
+        <option value="+298">🇫🇴 Faroe Islands (+298)</option>
+        <option value="+679">🇫🇯 Fiji (+679)</option>
+        <option value="+358">🇫🇮 Finland (+358)</option>
+        <option value="+33">🇫🇷 France (+33)</option>
+        <option value="+594">🇬🇫 French Guiana (+594)</option>
+        <option value="+689">🇵🇫 French Polynesia (+689)</option>
+        <option value="+241">🇬🇦 Gabon (+233)</option>
+        <option value="+220">🇬🇲 Gambia (+220)</option>
+        <option value="+995">🇬🇪 Georgia (+995)</option>
+        <option value="+49">🇩🇪 Germany (+49)</option>
+        <option value="+233">🇬🇭 Ghana (+233)</option>
+        <option value="+350">🇬🇮 Gibraltar (+350)</option>
+        <option value="+30">🇬🇷 Greece (+30)</option>
+        <option value="+299">🇬🇱 Greenland (+299)</option>
+        <option value="+1473">🇬🇩 Grenada (+1473)</option>
+        <option value="+590">🇬🇵 Guadeloupe (+590)</option>
+        <option value="+1671">🇬🇺 Guam (+1671)</option>
+        <option value="+502">🇬🇹 Guatemala (+502)</option>
+        <option value="+224">🇬🇳 Guinea (+224)</option>
+        <option value="+245">🇬🇼 Guinea-Bissau (+245)</option>
+        <option value="+592">🇬🇾 Guyana (+592)</option>
+        <option value="+509">🇭🇹 Haiti (+509)</option>
+        <option value="+504">🇭🇳 Honduras (+504)</option>
+        <option value="+852">🇭🇰 Hong Kong (+852)</option>
+        <option value="+36">🇭🇺 Hungary (+36)</option>
+        <option value="+354">🇮🇸 Iceland (+354)</option>
+        <option value="+62">🇮🇩 Indonesia (+62)</option>
+        <option value="+98">🇮🇷 Iran (+98)</option>
+        <option value="+964">🇮🇶 Iraq (+964)</option>
+        <option value="+353">🇮🇪 Ireland (+353)</option>
+        <option value="+39">🇮🇹 Italy (+39)</option>
+        <option value="+1876">🇯🇲 Jamaica (+1876)</option>
+        <option value="+81">🇯🇵 Japan (+81)</option>
+        <option value="+962">🇯🇴 Jordan (+962)</option>
+        <option value="+7">🇰🇿 Kazakhstan (+7)</option>
+        <option value="+254">🇰🇪 Kenya (+254)</option>
+        <option value="+686">🇰🇮 Kiribati (+686)</option>
+        <option value="+965">🇰🇼 Kuwait (+965)</option>
+        <option value="+996">🇰🇬 Kyrgyzstan (+996)</option>
+        <option value="+856">🇱🇦 Laos (+856)</option>
+        <option value="+371">🇱🇻 Latvia (+371)</option>
+        <option value="+961">🇱🇧 Lebanon (+961)</option>
+        <option value="+266">🇱🇸 Lesotho (+266)</option>
+        <option value="+231">🇱🇷 Liberia (+231)</option>
+        <option value="+218">🇱🇾 Libya (+218)</option>
+        <option value="+423">🇱🇮 Liechtenstein (+423)</option>
+        <option value="+370">🇱🇹 Lithuania (+370)</option>
+        <option value="+352">🇱🇺 Luxembourg (+352)</option>
+        <option value="+853">🇲🇴 Macau (+853)</option>
+        <option value="+389">🇲🇰 North Macedonia (+389)</option>
+        <option value="+261">🇲🇬 Madagascar (+261)</option>
+        <option value="+265">🇲🇼 Malawi (+265)</option>
+        <option value="+60">🇲🇾 Malaysia (+60)</option>
+        <option value="+960">🇲🇻 Maldives (+960)</option>
+        <option value="+223">🇲🇱 Mali (+223)</option>
+        <option value="+356">🇲🇹 Malta (+356)</option>
+        <option value="+692">🇲🇭 Marshall Islands (+692)</option>
+        <option value="+596">🇲🇶 Martinique (+596)</option>
+        <option value="+222">🇲🇷 Mauritania (+222)</option>
+        <option value="+230">🇲🇺 Mauritius (+230)</option>
+        <option value="+262">🇾🇹 Mayotte (+262)</option>
+        <option value="+52">🇲🇽 Mexico (+52)</option>
+        <option value="+691">🇫🇲 Micronesia (+691)</option>
+        <option value="+373">🇲🇩 Moldova (+373)</option>
+        <option value="+377">🇲🇨 Monaco (+377)</option>
+        <option value="+976">🇲🇳 Mongolia (+976)</option>
+        <option value="+382">🇲🇪 Montenegro (+382)</option>
+        <option value="+1664">🇲🇸 Montserrat (+1664)</option>
+        <option value="+212">🇲🇦 Morocco (+212)</option>
+        <option value="+258">🇲🇿 Mozambique (+258)</option>
+        <option value="+95">🇲🇲 Myanmar (+95)</option>
+        <option value="+264">🇳🇦 Namibia (+264)</option>
+        <option value="+674">🇳🇷 Nauru (+674)</option>
+        <option value="+977">🇳🇵 Nepal (+977)</option>
+        <option value="+31">🇳🇱 Netherlands (+31)</option>
+        <option value="+687">🇳🇨 New Caledonia (+687)</option>
+        <option value="+64">🇳🇿 New Zealand (+64)</option>
+        <option value="+505">🇳🇮 Nicaragua (+505)</option>
+        <option value="+227">🇳🇪 Niger (+227)</option>
+        <option value="+234">🇳🇬 Nigeria (+234)</option>
+        <option value="+683">🇳🇺 Niue (+683)</option>
+        <option value="+850">🇰🇵 North Korea (+850)</option>
+        <option value="+1670">🇲🇵 Northern Mariana Islands (+1670)</option>
+        <option value="+47">🇳🇴 Norway (+47)</option>
+        <option value="+968">🇴🇲 Oman (+968)</option>
+        <option value="+680">🇵🇼 Palau (+680)</option>
+        <option value="+970">🇵🇸 Palestine (+970)</option>
+        <option value="+507">🇵🇦 Panama (+507)</option>
+        <option value="+675">🇵🇬 Papua New Guinea (+675)</option>
+        <option value="+595">🇵🇾 Paraguay (+595)</option>
+        <option value="+51">🇵🇪 Peru (+51)</option>
+        <option value="+63">🇵🇭 Philippines (+63)</option>
+        <option value="+48">🇵🇱 Poland (+48)</option>
+        <option value="+351">🇵🇹 Portugal (+351)</option>
+        <option value="+1787">🇵🇷 Puerto Rico (+1787)</option>
+        <option value="+1939">🇵🇷 Puerto Rico (+1939)</option>
+        <option value="+974">🇶🇦 Qatar (+974)</option>
+        <option value="+262">🇷🇪 Réunion (+262)</option>
+        <option value="+40">🇷🇴 Romania (+40)</option>
+        <option value="+7">🇷🇺 Russia (+7)</option>
+        <option value="+250">🇷🇼 Rwanda (+250)</option>
+        <option value="+590">🇧🇱 Saint Barthélemy (+590)</option>
+        <option value="+290">🇸🇭 Saint Helena (+290)</option>
+        <option value="+1869">🇰🇳 Saint Kitts and Nevis (+1869)</option>
+        <option value="+1758">🇱🇨 Saint Lucia (+1758)</option>
+        <option value="+590">🇲🇫 Saint Martin (+590)</option>
+        <option value="+508">🇵🇲 Saint Pierre and Miquelon (+508)</option>
+        <option value="+1784">🇻🇨 Saint Vincent and the Grenadines (+1784)</option>
+        <option value="+685">🇼🇸 Samoa (+685)</option>
+        <option value="+378">🇸🇲 San Marino (+378)</option>
+        <option value="+239">🇸🇹 Sao Tome and Principe (+239)</option>
+        <option value="+966">🇸🇦 Saudi Arabia (+966)</option>
+        <option value="+221">🇸🇳 Senegal (+221)</option>
+        <option value="+381">🇷🇸 Serbia (+381)</option>
+        <option value="+248">🇸🇨 Seychelles (+248)</option>
+        <option value="+232">🇸🇱 Sierra Leone (+232)</option>
+        <option value="+65">🇸🇬 Singapore (+65)</option>
+        <option value="+1721">🇸🇽 Sint Maarten (+1721)</option>
+        <option value="+421">🇸🇰 Slovakia (+421)</option>
+        <option value="+386">🇸🇮 Slovenia (+386)</option>
+        <option value="+677">🇸🇧 Solomon Islands (+677)</option>
+        <option value="+252">🇸🇴 Somalia (+252)</option>
+        <option value="+27">🇿🇦 South Africa (+27)</option>
+        <option value="+82">🇰🇷 South Korea (+82)</option>
+        <option value="+211">🇸🇸 South Sudan (+211)</option>
+        <option value="+34">🇪🇸 Spain (+34)</option>
+        <option value="+249">🇸🇩 Sudan (+249)</option>
+        <option value="+597">🇸🇷 Suriname (+597)</option>
+        <option value="+268">🇸🇿 Swaziland (+268)</option>
+        <option value="+46">🇸🇪 Sweden (+46)</option>
+        <option value="+41">🇨🇭 Switzerland (+41)</option>
+        <option value="+963">🇸🇾 Syria (+963)</option>
+        <option value="+886">🇹🇼 Taiwan (+886)</option>
+        <option value="+992">🇹🇯 Tajikistan (+992)</option>
+        <option value="+255">🇹🇿 Tanzania (+255)</option>
+        <option value="+66">🇹🇭 Thailand (+66)</option>
+        <option value="+228">🇹🇬 Togo (+228)</option>
+        <option value="+690">🇹🇰 Tokelau (+690)</option>
+        <option value="+676">🇹🇴 Tonga (+676)</option>
+        <option value="+1868">🇹🇹 Trinidad and Tobago (+1868)</option>
+        <option value="+216">🇹🇳 Tunisia (+216)</option>
+        <option value="+90">🇹🇷 Turkey (+90)</option>
+        <option value="+993">🇹🇲 Turkmenistan (+993)</option>
+        <option value="+1649">🇹🇨 Turks and Caicos Islands (+1649)</option>
+        <option value="+688">🇹🇻 Tuvalu (+688)</option>
+        <option value="+256">🇺🇬 Uganda (+256)</option>
+        <option value="+380">🇺🇦 Ukraine (+380)</option>
+        <option value="+971">🇦🇪 United Arab Emirates (+971)</option>
+        <option value="+44">🇬🇧 United Kingdom (+44)</option>
+        <option value="+1">🇺🇸 United States (+1)</option>
+        <option value="+598">🇺🇾 Uruguay (+598)</option>
+        <option value="+998">🇺🇿 Uzbekistan (+998)</option>
+        <option value="+678">🇻🇺 Vanuatu (+678)</option>
+        <option value="+379">🇻🇦 Vatican City (+379)</option>
+        <option value="+58">🇻🇪 Venezuela (+58)</option>
+        <option value="+84">🇻🇳 Vietnam (+84)</option>
+        <option value="+1284">🇻🇬 British Virgin Islands (+1284)</option>
+        <option value="+1340">🇻🇮 U.S. Virgin Islands (+1340)</option>
+        <option value="+681">🇼🇫 Wallis and Futuna (+681)</option>
+        <option value="+967">🇾🇪 Yemen (+967)</option>
+        <option value="+260">🇿🇲 Zambia (+260)</option>
+        <option value="+263">🇿🇼 Zimbabwe (+263)</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label class="input-label">Eɴᴛᴇʀ Yᴏᴜʀ Wʜᴀᴛꜱᴀᴘᴘ Nᴜᴍʙᴇʀ</label>
+      <input type="number" id="mobileNumber" class="input-field" placeholder="702884908" pattern="[0-9]{10,}" title="Please enter your phone number without country code">
+    </div>
+
+    <button class="generate-btn" id="submit">
+      <i class="fas fa-key"></i> Gᴇɴᴇʀᴀᴛᴇ Pᴀɪʀ Cᴏᴅᴇ
+    </button>
+
+    <div class="loading" id="loading">
+      <i class="fas fa-spinner"></i>
+    </div>
+
+    <div class="code-display" id="codeDisplay">
+      Yᴏᴜʀ Pᴀɪʀ Cᴏᴅᴇ Wɪʟʟ Aᴘᴘᴇᴀʀ Hᴇʀᴇ
+    </div>
+
+    <button class="copy-btn" id="copy" onclick="copyCode()">
+      <i class="fas fa-copy"></i> Cᴏᴘʏ Cᴏᴅᴇ
+    </button>
+
+    <div class="footer">
+      <p>© 2025 ᴅᴇᴠɪʟ ᴛᴇᴄʜ ᴍᴅ ᴍɪɴɪ ʙᴏᴛ | ᴍᴀᴅᴇ ʙʏ ᴄʏʙᴇʀ ᴀꜱʜᴜᴜ ᴏꜰᴄ</p>
+    </div>
+  </div>
+
+  <div id="toast">Cᴏᴅᴇ Cᴏᴘɪᴇᴅ Tᴏ Cʟɪᴘʙᴏᴀʀᴅ !</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+  <script>
+    // ඕඩියෝ කන්ට්‍රෝල්ස්
+    const audio = document.getElementById('bg-music');
+    const volumeControl = document.getElementById('volume-control');
+
+    // ආරම්භක වොලියුම් උපරිමයට සකසනවා
+    audio.volume = 1;
+    volumeControl.value = 1;
+
+    // ඕඩියෝව ප්ලේ වෙන්න ගත්තම මියුට් ඉවත් කරනවා
+    audio.addEventListener('canplay', () => {
+      audio.muted = false;
+      audio.play().catch(err => console.error('අන්මියුට් කරලා ප්ලේ කරන්න අසමත්:', err));
+    });
+
+    // වොලියුම් කන්ට්‍රෝල්
+    volumeControl.addEventListener('input', function() {
+      audio.volume = this.value;
+    });
+
+    // පිටුව ලෝඩ් වුණ ගමන් ඕඩියෝව ප්ලේ කරන්න
+    window.addEventListener('load', () => {
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          console.error('ඔටෝප්ලේ අසමත් වුණා:', err);
+          setTimeout(() => {
+            audio.muted = false;
+            audio.play().catch(err => console.error('ආයෙ උත්සාහය අසමත්:', err));
+          }, 500);
+        });
+      }
+    });
+
+    // බ්‍රවුසරයේ ඕනෑම ඉන්ටරැක්ෂන් එකකදී ඕඩියෝව චෙක් කරනවා
+    document.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.muted = false;
+        audio.play().catch(err => console.error('ඉන්ටරැක්ෂන් එකෙන් ප්ලේ කරන්න අසමත්:', err));
+      }
+    }, { once: true });
+
+    // Generate Pair Code functionality with break animation
+    document.getElementById("submit").addEventListener("click", async (e) => {
+      e.preventDefault();
+      const mobileNumberInput = document.getElementById("mobileNumber");
+      const countryCode = document.getElementById("countryCode").value;
+      const codeDisplay = document.getElementById("codeDisplay");
+      const loadingSpinner = document.getElementById("loading");
+      const submitBtn = document.getElementById("submit");
+
+      const mobileNumber = mobileNumberInput.value.trim();
+      if (!mobileNumber) {
+        codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Please enter your WhatsApp number</div>';
+        document.getElementById("copy").style.display = "none";
+        return;
+      }
+
+      // Trigger break animation
+      submitBtn.classList.add("breaking");
+      setTimeout(() => {
+        submitBtn.classList.remove("breaking");
+      }, 500);
+
+      const fullNumber = countryCode + mobileNumber;
+
+      loadingSpinner.style.display = "block";
+      codeDisplay.innerHTML = '';
+      document.getElementById("copy").style.display = "none";
+
+      try {
+        const response = await axios(`/code?number=${fullNumber.replace(/[^0-9]/g, "")}`);
+        const code = response.data.code || "Service Unavailable";
+        if (code === "Service Unavailable") {
+          codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Service Unavailable</div>';
+        } else {
+          codeDisplay.innerHTML = `<div class="success-message"><i class="fas fa-check-circle"></i> CODE: ${code}</div>`;
+          document.getElementById("copy").style.display = "flex";
+        }
+      } catch (error) {
+        console.error("Error generating code:", error);
+        codeDisplay.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Error generating code. Please try again.</div>';
+      } finally {
+        loadingSpinner.style.display = "none";
+      }
+    });
+
+    function copyCode() {
+      const codeDisplay = document.getElementById("codeDisplay").innerText;
+      const code = codeDisplay.replace('CODE: ', '');
+      const copyBtn = document.getElementById("copy");
+
+      navigator.clipboard.writeText(code).then(() => {
+        const originalText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        copyBtn.disabled = true;
+        copyBtn.style.opacity = "0.6";
+        copyBtn.style.cursor = "not-allowed";
+
+        const toast = document.getElementById("toast");
+        toast.style.display = "block";
+        toast.style.opacity = "1";
+
+        setTimeout(() => {
+          copyBtn.innerHTML = originalText;
+          copyBtn.disabled = false;
+          copyBtn.style.opacity = "1";
+          copyBtn.style.cursor = "pointer";
+
+          toast.style.opacity = "0";
+          setTimeout(() => {
+            toast.style.display = "none";
+          }, 300);
+        }, 2000);
+      }).catch(err => {
+        console.error("Failed to copy text: ", err);
+      });
+    }
+  </script>
+</body>
+</html>
